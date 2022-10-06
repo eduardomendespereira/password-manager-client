@@ -11,14 +11,14 @@ export class PasswordClient {
 
     constructor() {
         this.axiosClient = axios.create({
-            baseURL: 'http://localhost:8080/api',
+            baseURL: 'http://localhost:8080/api/passwords',
             headers: {'Content-type': 'application/json'}
         });
     }
 
     public async findById(id: number): Promise<any> {
         try {
-            return (await this.axiosClient.get<User>(`/passwords/${id}`)).data
+            return (await this.axiosClient.get<User>(`/${id}`)).data
         } catch (error: any) {
             return Promise.reject(error.response)
         }
@@ -26,7 +26,7 @@ export class PasswordClient {
 
     public async findByAll(pageRequest: PageRequest): Promise<PageResponse<Password>> {
         try {
-            let requestPath = '/passwords'
+            let requestPath = ''
 
             requestPath += `?page=${pageRequest.currentPage}`
             requestPath += `&size=${pageRequest.pageSize}`
@@ -45,7 +45,7 @@ export class PasswordClient {
 
     public async save(password: Password): Promise<void> {
         try {
-            return (await this.axiosClient.post('/passwords', password))
+            return (await this.axiosClient.post('/', password))
         } catch (error: any) {
             return Promise.reject(error.response)
         }
@@ -53,7 +53,7 @@ export class PasswordClient {
 
     public async update(password: Password): Promise<void> {
         try {
-            return (await this.axiosClient.put(`passwords/${password.id}`, password)).data
+            return (await this.axiosClient.put(`/${password.id}`, password)).data
         } catch (error: any) {
             return Promise.reject(error.response)
         }

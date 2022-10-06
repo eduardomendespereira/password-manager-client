@@ -9,7 +9,7 @@
 
   <div class="columns">
     <div class="column is-9">
-      <input class="input" type="filtro" placeholder="Descri;'ao">
+      <input class="input" type="filtro" placeholder="Descrição">
     </div>
     <div class="column is-2">
       <router-link class="link-cad" to="/senhas/cadastrar">
