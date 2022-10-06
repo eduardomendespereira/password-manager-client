@@ -1,8 +1,11 @@
 import { AbstractEntity } from "./abstract-entity.model"
+import {User} from "@/model/user.model";
 
-export class User extends AbstractEntity {
-    username! : string
+export class Password extends AbstractEntity {
+    description! : string
+    url! : string
     password! : string
+    user! : User
 
     constructor() {
         super()

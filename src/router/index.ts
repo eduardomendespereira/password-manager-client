@@ -3,12 +3,12 @@ import HomeView from '../views/HomeView.vue'
 
 const routes: Array<RouteRecordRaw> = [
 
-  // {
-  //   path: '/about',
-  //   name: 'about',
-  //
-  //   component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-  // }
+  {
+    path: '/usuarios',
+    name: 'users',
+
+    component: () => import('../views/usuarios/UserListView.vue')
+  }
 ]
 
 const router = createRouter({

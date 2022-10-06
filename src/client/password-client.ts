@@ -2,9 +2,10 @@ import { User } from "@/model/user.model";
 import { PageRequest } from "@/model/page/page-request";
 import { PageResponse } from "@/model/page/page-response";
 import axios, { AxiosInstance } from "axios";
+import {Password} from "@/model/password.model";
 // import axiosClient from "../plugins/axios";
 
-export class UserClient {
+export class PasswordClient {
 
     private axiosClient: AxiosInstance;
 
@@ -17,22 +18,22 @@ export class UserClient {
 
     public async findById(id: number): Promise<any> {
         try {
-            return (await this.axiosClient.get<User>(`/users/${id}`)).data
+            return (await this.axiosClient.get<User>(`/passwords/${id}`)).data
         } catch (error: any) {
             return Promise.reject(error.response)
         }
     }
 
-    public async findByAll(pageRequest: PageRequest): Promise<PageResponse<User>> {
+    public async findByAll(pageRequest: PageRequest): Promise<PageResponse<Password>> {
         try {
-            let requestPath = '/users'
+            let requestPath = '/passwords'
 
             requestPath += `?page=${pageRequest.currentPage}`
             requestPath += `&size=${pageRequest.pageSize}`
             requestPath += `&sort=${pageRequest.sortField === undefined
                 ? '' : pageRequest.sortField},${pageRequest.direction}`
 
-            return (await this.axiosClient.get<PageResponse<User>>(requestPath,
+            return (await this.axiosClient.get<PageResponse<Password>>(requestPath,
                 {
                     params: {filtros: pageRequest.filter}
                 }
@@ -42,25 +43,25 @@ export class UserClient {
         }
     }
 
-    public async save(user: User): Promise<void> {
+    public async save(password: Password): Promise<void> {
         try {
-            return (await this.axiosClient.post('/users', user))
+            return (await this.axiosClient.post('/passwords', password))
         } catch (error: any) {
             return Promise.reject(error.response)
         }
     }
 
-    public async update(user: User): Promise<void> {
+    public async update(password: Password): Promise<void> {
         try {
-            return (await this.axiosClient.put(`/users/${user.id}`, user)).data
+            return (await this.axiosClient.put(`passwords/${password.id}`, password)).data
         } catch (error: any) {
             return Promise.reject(error.response)
         }
     }
 
-    public async delete(user: User): Promise<any> {
+    public async disable(password: Password): Promise<any> {
         try {
-            return (await this.axiosClient.delete(`/users/disable/${user}`)).data
+            return (await this.axiosClient.delete(`/passwords/disable/`, password)).data
         } catch (error: any) {
             return Promise.reject(error.response)
         }
