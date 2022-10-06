@@ -13,6 +13,10 @@
           <ul class="menu-list">
             <li><router-link to="/usuarios">Usuários</router-link></li>
           </ul>
+          <p class="menu-label"> Senhas </p>
+          <ul class="menu-list">
+            <li><router-link to="/senhas">Senhas</router-link></li>
+          </ul>
         </aside>
       </nav>
     </div>

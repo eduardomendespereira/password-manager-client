@@ -1,7 +1,7 @@
 <template>
   <div class="columns">
     <div class="column is-12 is-size-3">
-      Lista de Usuários
+      Lista de Senhas
     </div>
   </div>
 
@@ -9,11 +9,11 @@
 
   <div class="columns">
     <div class="column is-9">
-      <input class="input" type="filtro" placeholder="Nome">
+      <input class="input" type="filtro" placeholder="Descri;'ao">
     </div>
     <div class="column is-2">
-      <router-link class="link-cad" to="/usuarios/cadastrar">
-        <button class="button btn-cadastrar" style="background-color: green; color: white">Inserir Usuário</button>
+      <router-link class="link-cad" to="/senhas/cadastrar">
+        <button class="button btn-cadastrar" style="background-color: green; color: white">Inserir Senha</button>
       </router-link>
     </div>
   </div>
@@ -25,21 +25,22 @@
     <tr style="background-color: mediumpurple">
       <th style="color: #fff;">ID</th>
       <th style="color: #fff;">Ativo</th>
-      <th style="color: #fff;">Username</th>
+      <th style="color: #fff;">Descrição</th>
+      <th style="color: #fff;">Url</th>
       <th style="color: #fff;">Senha</th>
     </tr>
     </thead>
     <tbody>
-    <tr v-for="item in userList" :key="item.id">
+    <tr v-for="item in passwordList" :key="item.id">
       <th>{{ item.id }}</th>
 
       <th>
-        <span v-if="!item.inactive" class="tag is-success"> Ativo </span>
-        <span v-if="item.inactive" class="tag is-danger"> Inativo </span>
+        <span v-if="!item.inactive" class="tag is-success"> Ativa </span>
+        <span v-if="item.inactive" class="tag is-danger"> Inativa </span>
       </th>
 
-      <th>{{ item.username }}</th>
-      <th>{{ item.password }}</th>
+      <th>{{ item.description }}</th>
+      <th>{{ item.url }}</th>
       <th>
         <button @click="onClickDetailPage(item.id)" style="background-color: dodgerblue; color: white" class="button btn-detalhar">Detalhar</button>
       </th>
@@ -52,30 +53,30 @@
 import { Vue } from 'vue-class-component';
 import { PageRequest } from '@/model/page/page-request'
 import { PageResponse } from '@/model/page/page-response'
-import { User } from '@/model/user.model'
-import { UserClient } from '@/client/user.client'
+import { Password } from '@/model/password.model'
+import { PasswordClient } from '@/client/password-client'
 
-export default class UserListView extends Vue {
+export default class PasswordListView extends Vue {
   private pageRequest: PageRequest = new PageRequest()
-  private pageResponse: PageResponse<User> = new PageResponse()
-  private userList: User[] = []
-  private userClient!: UserClient
+  private pageResponse: PageResponse<Password> = new PageResponse()
+  private passwordList: Password[] = []
+  private passwordClient!: PasswordClient
   public mounted(): void {
-    this.userClient = new UserClient()
-    this.listUsers()
+    this.passwordClient = new PasswordClient()
+    this.listPasswords()
   }
-  private listUsers(): void {
-    this.userClient.findByAll(this.pageRequest)
+  private listPasswords(): void {
+    this.passwordClient.findByAll(this.pageRequest)
         .then(
             success => {
               this.pageResponse = success
-              this.userList = this.pageResponse.content
+              this.passwordList = this.pageResponse.content
             },
             error => console.log(error)
         )
   }
   private onClickDetailPage(id: number){
-    this.$router.push({ name: 'detail-user', params: { id: id} })
+    this.$router.push({ name: 'detail-password', params: { id: id} })
   }
 }
 </script>
