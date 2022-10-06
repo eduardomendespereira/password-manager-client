@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
 
 const routes: Array<RouteRecordRaw> = [
 
@@ -12,6 +11,23 @@ const routes: Array<RouteRecordRaw> = [
     path: '/senhas',
     name: 'passwords',
     component: () => import('../views/password/PasswordListView.vue')
+  },
+  {
+    path: '/senhas/cadastrar',
+    name: 'insert-password',
+    component: () => import('../views/password/FormInsertView.vue')
+  },
+  {
+    path: '/senhas/editar/:id',
+    name: 'edit-password',
+    props: (router) => ({ id: router.params.id }),
+    component: () => import('../views/password/FormUpdateView.vue')
+  },
+  {
+    path: '/senhas/detalhar/:id',
+    name: 'detail-password',
+    props: (router) => ({ id: router.params.id }),
+    component: () => import('../views/password/DetailView.vue')
   }
 ]
 
