@@ -12,7 +12,7 @@ export class PasswordClient {
     constructor() {
         this.axiosClient = axios.create({
             baseURL: 'http://localhost:8080/api/passwords',
-            headers: {'Content-Type': 'application/json'}
+            headers: { "Content-Type": "application/json" },
         });
     }
 

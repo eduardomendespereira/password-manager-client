@@ -10,8 +10,8 @@ export class UserClient {
 
     constructor() {
         this.axiosClient = axios.create({
-            baseURL: 'http://localhost:8080/api/users',
-            headers: { "Content-Type": "application/json"}
+            baseURL: 'http://localhost:8080/api',
+            headers: { "Content-Type": "application/json" }
         });
     }
 
@@ -76,7 +76,7 @@ export class UserClient {
 
     public async login(user: User): Promise<any> {
         try {
-            return (await this.axiosClient.post('/login', user))
+            return (await this.axiosClient.post('/users/login', user))
         } catch (error:any) {
             return Promise.reject(error.response)
         }

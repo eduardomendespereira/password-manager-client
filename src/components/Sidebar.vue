@@ -9,10 +9,6 @@
     <div class="column is-3">
       <nav>
         <aside class="menu">
-          <p class="menu-label"> Usuários </p>
-          <ul class="menu-list">
-            <li><router-link to="/usuarios">Usuários</router-link></li>
-          </ul>
           <p class="menu-label"> Senhas </p>
           <ul class="menu-list">
             <li><router-link to="/senhas">Senhas</router-link></li>
@@ -20,6 +16,9 @@
           <p class="menu-label"> Login </p>
           <ul class="menu-list">
             <li><router-link to="/login" style="color: dodgerblue">Entrar</router-link></li>
+          </ul>
+          <ul class="menu-list">
+            <li><router-link @click="onClickLogout()" to="/login" style="color:red">Sair</router-link></li>
           </ul>
         </aside>
       </nav>
@@ -29,6 +28,22 @@
     </div>
   </div>
 </template>
+
+<script lang="ts">
+import { Vue } from 'vue-class-component';
+import { removeCookie } from 'typescript-cookie';
+import { AuthUtils } from '@/utils/auth-utils';
+export default class SidebarUtils extends Vue {
+  authUtils: AuthUtils = new AuthUtils()
+  isAuthenticated!: boolean
+  public mounted(): void {
+    this.isAuthenticated = this.authUtils.checkAuthenticated()
+  }
+  private onClickLogout(): void {
+    removeCookie("access")
+  }
+}
+</script>
 
 <style lang="scss">
 @import "~bulma/bulma.sass";
