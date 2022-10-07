@@ -68,8 +68,16 @@ export class UserClient {
 
     public async delete(user: User): Promise<any> {
         try {
-            return (await this.axiosClient.delete(`/users/disable/${user}`)).data
+            return (await this.axiosClient.delete(`/users/${user.id}`)).data
         } catch (error: any) {
+            return Promise.reject(error.response)
+        }
+    }
+
+    public async login(user: User): Promise<any> {
+        try {
+            return (await this.axiosClient.post('/login', user))
+        } catch (error:any) {
             return Promise.reject(error.response)
         }
     }

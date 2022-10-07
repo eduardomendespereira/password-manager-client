@@ -13,6 +13,7 @@
 </style>
 <script>
 import Sidebar from "@/components/Sidebar";
+import LoginView from "@/views/login/LoginView";
 export default {
   components: {Sidebar}
 }
