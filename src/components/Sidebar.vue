@@ -20,6 +20,9 @@
           <ul class="menu-list">
             <li><router-link @click="onClickLogout()" to="/login" style="color:red">Sair</router-link></li>
           </ul>
+          <ul class="menu-list">
+            <li><router-link to="/usuarios/cadastrar" style="color:purple">Registre-se</router-link></li>
+          </ul>
         </aside>
       </nav>
     </div>
