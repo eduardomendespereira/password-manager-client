@@ -6,18 +6,15 @@
   </div>
 
   <hr />
-
-  <div class="columns">
-    <div class="column is-9">
-      <input class="input" type="filtro" placeholder="Descrição">
-    </div>
-    <div class="column is-2">
+    <div class="buttons-list">
       <router-link class="link-cad" to="/senhas/cadastrar">
         <button class="button btn-cadastrar" style="background-color: green; color: white">Inserir Senha</button>
       </router-link>
+      <div>
+        <input class="find-password" type="text" v-model="passwordFetched.description" placeholder="Digite a descrição da senha">
+        <button class="button is-link" @click="onClickFindByDescription()">Buscar</button>
+      </div>
     </div>
-  </div>
-
   <hr />
 
   <table class="table table is-fullwidth">
@@ -65,10 +62,13 @@ export default class PasswordListView extends Vue {
   private passwordList: Password[] = []
   private passwordClient!: PasswordClient
   private authUtils: AuthUtils = new AuthUtils()
+  private passwordFetched : Password = new Password()
+
   public mounted(): void {
     this.redirectPage()
     this.passwordClient = new PasswordClient()
     this.listPasswords()
+    console.log(this.passwordFetched)
   }
   private listPasswords(): void {
     this.passwordClient.findByAll(this.pageRequest)
@@ -79,6 +79,18 @@ export default class PasswordListView extends Vue {
             },
             error => console.log(error)
         )
+  }
+
+  private onClickFindByDescription() {
+     this.passwordClient.findByDescription(this.passwordFetched.description)
+         .then(
+             success => {
+               this.passwordFetched = success
+               var results = confirm("Id: " + success.id + "  " + "Descrição: " + success.description + "  " +
+                   + "URL: " + success.url + "  " + "Usuário: " + success.user.username + "  "
+                   + "Senha: " + success.password)
+             }, error => console.log(error)
+         )
   }
 
   public redirectPage(): void {
@@ -93,3 +105,18 @@ export default class PasswordListView extends Vue {
   }
 }
 </script>
+
+<style lang="scss">
+.buttons-list{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.find-password{
+  border-radius: 5px;
+  width: 300px;
+  height: 40px;
+  padding: 10px
+}
+</style>

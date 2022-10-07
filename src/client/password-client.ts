@@ -24,6 +24,14 @@ export class PasswordClient {
         }
     }
 
+    public async findByDescription(description: String): Promise<any> {
+        try {
+            return (await this.axiosClient.get<User>(`/findDescription/${description}`)).data
+        } catch (error: any) {
+            return Promise.reject(error.response)
+        }
+    }
+
     public async findByAll(pageRequest: PageRequest): Promise<PageResponse<Password>> {
         try {
             let requestPath = ''
