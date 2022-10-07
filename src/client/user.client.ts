@@ -23,6 +23,14 @@ export class UserClient {
         }
     }
 
+    public async findByUsername(username: String): Promise<any> {
+        try {
+            return (await this.axiosClient.get<User>(`/users/findUsername/${username}`)).data
+        } catch (error: any) {
+            return Promise.reject(error.response)
+        }
+    }
+
     public async findByAll(pageRequest: PageRequest): Promise<PageResponse<User>> {
         try {
             let requestPath = '/users'

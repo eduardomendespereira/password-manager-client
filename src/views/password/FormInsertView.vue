@@ -64,8 +64,10 @@ import { Vue } from 'vue-class-component';
 import { Password } from '@/model/password.model'
 import { Notification } from '@/model/notification.model'
 import { PasswordClient } from '@/client/password-client'
+import {User} from "@/model/user.model";
+import {UserClient} from "@/client/user.client";
 
-export default class ConvenioForm extends Vue {
+export default class FormInsertView extends Vue {
   private passwordClient!: PasswordClient
   private password : Password = new Password()
   private notification : Notification = new Notification()

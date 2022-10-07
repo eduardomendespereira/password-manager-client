@@ -28,6 +28,7 @@
       <th style="color: #fff;">Descrição</th>
       <th style="color: #fff;">Url</th>
       <th style="color: #fff;">Senha</th>
+      <th style="color: #fff;">Opções</th>
     </tr>
     </thead>
     <tbody>
@@ -41,6 +42,7 @@
 
       <th>{{ item.description }}</th>
       <th>{{ item.url }}</th>
+      <th>{{ item.password }}</th>
       <th>
         <button @click="onClickDetailPage(item.id)" style="background-color: dodgerblue; color: white" class="button btn-detalhar">Detalhar</button>
       </th>

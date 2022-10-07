@@ -27,6 +27,7 @@
       <th style="color: #fff;">Ativo</th>
       <th style="color: #fff;">Username</th>
       <th style="color: #fff;">Senha</th>
+      <th style="color: #fff;">Opções</th>
     </tr>
     </thead>
     <tbody>
