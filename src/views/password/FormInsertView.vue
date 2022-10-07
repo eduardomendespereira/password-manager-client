@@ -38,13 +38,6 @@
       </div>
     </div>
 
-    <div class="field">
-      <label class="label">Usuário</label>
-      <div class="control">
-        <input class="input is-primary" type="text" v-model="password.user" placeholder="Usuário">
-      </div>
-    </div>
-
     <div class="columns">
       <div class="column is-8"></div>
       <div class="column is-2">
@@ -66,20 +59,41 @@ import { Notification } from '@/model/notification.model'
 import { PasswordClient } from '@/client/password-client'
 import {User} from "@/model/user.model";
 import {UserClient} from "@/client/user.client";
+import { getCookie, removeCookie } from "typescript-cookie";
+import { AuthUtils } from '@/utils/auth-utils';
 
 export default class FormInsertView extends Vue {
   private passwordClient!: PasswordClient
   private password : Password = new Password()
   private notification : Notification = new Notification()
+  private user: User = new User()
+  private authUtils: AuthUtils = new AuthUtils()
+
   public mounted(): void {
     this.passwordClient = new PasswordClient()
+    this.getUser()
   }
+
+  private getUser(): void {
+    this.user.id = (getCookie("access") as any)
+    this.password.user = this.user
+    this.redirectPage()
+  }
+
+  public redirectPage(): void {
+    var authenticated = this.authUtils.checkAuthenticated()
+    if (!authenticated) {
+      this.$router.push({ name: 'login' })
+    }
+  }
+
   private onClickSave(): void {
     this.passwordClient.save(this.password)
         .then(
             success => {
               this.notification = this.notification.new(true, 'notification is-success', 'Senha Cadastrada com sucesso!!!')
               this.onClickClear()
+              this.$router.push({ name: 'login' })
             }, error => {
               this.notification = this.notification.new(true, 'notification is-danger', 'Error: ' + error)
               this.onClickClear()
