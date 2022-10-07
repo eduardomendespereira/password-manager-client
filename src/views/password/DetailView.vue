@@ -71,6 +71,7 @@ export default class DetailView extends Vue {
                 this.notification = this.notification.new(true, 'notification is-danger', 'Erro ao remover a senha: ' + error)
               }
           )
+      this.$router.push({ name: 'passwords' })
     }
   }
 
@@ -97,7 +98,6 @@ export default class DetailView extends Vue {
 }
 .btn-editar{
   background-color: blue;
-  color: white;
   width: 30%;
 }
 .link-voltar{
@@ -105,7 +105,6 @@ export default class DetailView extends Vue {
 }
 .btn-voltar{
   background-color: dimgrey;
-  color: white;
   width: 100%;
 }
 .btn-desativar{

@@ -28,7 +28,7 @@
     <div class="field">
       <label class="label">Senha</label>
       <div class="control">
-        <input class="input" type="text" v-model="password.password" placeholder="Password">
+        <input class="input" type="password" v-model="password.password" placeholder="Password">
       </div>
     </div>
 
@@ -47,14 +47,18 @@ import { Password } from '@/model/password.model'
 import { Notification } from '@/model/notification.model'
 import { PasswordClient } from '@/client/password-client'
 import {Prop} from "vue-property-decorator";
+import { AuthUtils } from '@/utils/auth-utils';
 
 export default class FormUpdateView extends Vue {
   private passwordClient!: PasswordClient
   private password : Password = new Password()
   private notification : Notification = new Notification()
+  private authUtils: AuthUtils = new AuthUtils()
   @Prop({type: Number, required: false})
   private readonly id!: number
+
   public mounted(): void {
+    this.redirectPage()
     this.passwordClient = new PasswordClient()
     this.getPassword()
   }
@@ -67,12 +71,21 @@ export default class FormUpdateView extends Vue {
             error => console.log(error)
         )
   }
+
+  public redirectPage(): void {
+    var authenticated = this.authUtils.checkAuthenticated()
+    if (!authenticated) {
+      this.$router.push({ name: 'login' })
+    }
+  }
+
   private onClickEdit(): void {
     this.passwordClient.update(this.password)
         .then(
             success => {
               this.notification = this.notification.new(true, 'notification is-success', 'Senha Editada com sucesso!!!')
               this.onClickClear()
+              this.$router.push({ name: 'passwords' })
             }, error => {
               this.notification = this.notification.new(true, 'notification is-danger', 'Error: ' + error)
               this.onClickClear()
@@ -117,7 +130,6 @@ export default class FormUpdateView extends Vue {
 }
 .btn-salvar{
   background-color: green;
-  color: white;
   width: 40%;
 }
 .link-cad{
@@ -125,7 +137,6 @@ export default class FormUpdateView extends Vue {
 }
 .btn-voltar{
   background-color: red;
-  color: white;
   width: 100%;
 }
 </style>

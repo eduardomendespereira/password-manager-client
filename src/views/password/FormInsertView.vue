@@ -70,6 +70,7 @@ export default class FormInsertView extends Vue {
   private authUtils: AuthUtils = new AuthUtils()
 
   public mounted(): void {
+    this.redirectPage()
     this.passwordClient = new PasswordClient()
     this.getUser()
   }
@@ -93,7 +94,7 @@ export default class FormInsertView extends Vue {
             success => {
               this.notification = this.notification.new(true, 'notification is-success', 'Senha Cadastrada com sucesso!!!')
               this.onClickClear()
-              this.$router.push({ name: 'login' })
+              this.$router.push({ name: 'passwords' })
             }, error => {
               this.notification = this.notification.new(true, 'notification is-danger', 'Error: ' + error)
               this.onClickClear()
