@@ -23,8 +23,8 @@
       <router-link class="link-voltar" to="/senhas">
         <button class="button btn-voltar">Voltar</button>
       </router-link>
-      <button @click="onClickEditPage(password.id)" class="button btn-editar">Editar</button>
-      <button @click="onClickDelete()" class="button btn-desativar">Deletar</button>
+      <button @click="onClickEditPage(password.id)" class="button is-link btn-editar">Editar</button>
+      <button @click="onClickDelete()" class="button is-danger btn-desativar">Deletar</button>
     </div>
   </div>
 </template>
