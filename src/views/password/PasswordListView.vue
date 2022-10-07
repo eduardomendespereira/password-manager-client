@@ -22,7 +22,7 @@
 
   <table class="table table is-fullwidth">
     <thead class="green">
-    <tr style="background-color: #2c3e50">
+    <tr style="background-color: darkgreen">
       <th style="color: #fff;">ID</th>
       <th style="color: #fff;">Ativo</th>
       <th style="color: #fff;">Descrição</th>
