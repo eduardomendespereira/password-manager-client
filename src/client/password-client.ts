@@ -59,9 +59,9 @@ export class PasswordClient {
         }
     }
 
-    public async disable(password: Password): Promise<any> {
+    public async delete(password: Password): Promise<any> {
         try {
-            return (await this.axiosClient.delete(`/passwords/disable/`, password)).data
+            return (await this.axiosClient.delete(`/${password.id}`)).data
         } catch (error: any) {
             return Promise.reject(error.response)
         }
