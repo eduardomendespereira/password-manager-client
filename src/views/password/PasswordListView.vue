@@ -57,13 +57,16 @@ import { PageRequest } from '@/model/page/page-request'
 import { PageResponse } from '@/model/page/page-response'
 import { Password } from '@/model/password.model'
 import { PasswordClient } from '@/client/password-client'
+import { AuthUtils } from '@/utils/auth-utils';
 
 export default class PasswordListView extends Vue {
   private pageRequest: PageRequest = new PageRequest()
   private pageResponse: PageResponse<Password> = new PageResponse()
   private passwordList: Password[] = []
   private passwordClient!: PasswordClient
+  private authUtils: AuthUtils = new AuthUtils()
   public mounted(): void {
+    this.redirectPage()
     this.passwordClient = new PasswordClient()
     this.listPasswords()
   }
@@ -77,6 +80,14 @@ export default class PasswordListView extends Vue {
             error => console.log(error)
         )
   }
+
+  public redirectPage(): void {
+    var authenticated = this.authUtils.checkAuthenticated()
+    if (!authenticated) {
+      this.$router.push({ name: 'login' })
+    }
+  }
+
   private onClickDetailPage(id: number){
     this.$router.push({ name: 'detail-password', params: { id: id} })
   }

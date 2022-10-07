@@ -17,6 +17,10 @@
           <ul class="menu-list">
             <li><router-link to="/senhas">Senhas</router-link></li>
           </ul>
+          <p class="menu-label"> Login </p>
+          <ul class="menu-list">
+            <li><router-link to="/login" style="color: dodgerblue">Entrar</router-link></li>
+          </ul>
         </aside>
       </nav>
     </div>
