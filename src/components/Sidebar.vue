@@ -1,7 +1,7 @@
 <template>
   <div class="column">
     <div class="columns is-12 menu-top">
-      USUÁRIOS
+      GERENCIADOR DE SENHAS
     </div>
   </div>
 
